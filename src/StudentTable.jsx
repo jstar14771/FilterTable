@@ -4,8 +4,13 @@ import Filters from './Filters';
 import DataBody from './DataBody';
 
 const StudentTable = () => {
-    const [StuData, setData] = useState(data);
-    const [order, setOrder] = useState("asc");
+    const[StuData, setData] = useState(data);
+    const[order, setOrder] = useState("asc");
+    const[currPage,setPage]=useState(1);
+    let dataPerPage=6;
+    const start = (currPage - 1) * dataPerPage;
+    const currentData = StuData.slice(start, start + dataPerPage);
+    const totalPages = Math.ceil(StuData.length / dataPerPage);
 
     function sortTable(column) {
         const newOrder = order === "asc" ? "desc" : "asc";
@@ -19,6 +24,9 @@ const StudentTable = () => {
 
         setData(sortedData);
     }
+    const handlePage=(page)=>{
+        setPage(page)
+    }
 
     return (
         <>
@@ -28,7 +36,7 @@ const StudentTable = () => {
                     <div className='flex h-full w-full justify-between'>
                     <Filters data={data} setD={setData}/>
                     <div className='w-[3/5]'>
-                        <table className='border-collapse'>
+                        <table className='h-[52vh]'>
                             <thead>
                                 <tr className='bg-green-200 border-black border-[1px] text-center h-10'>
                                     <th className='w-24 border-r-[1px] border-black cursor-pointer' onClick={() => sortTable("id")}>S.No</th>
@@ -39,8 +47,13 @@ const StudentTable = () => {
                                     <th className='w-40 cursor-pointer' onClick={() => sortTable("SocialScience")}>Social Science</th>
                                 </tr>
                             </thead>
-                            <DataBody data={StuData} />
+                            <DataBody data={currentData} />
                         </table>
+                        <div className='flex items-center justify-center gap-6 mt-2'>
+                           <button onClick={()=>handlePage(currPage-1)} disabled={currPage===1} className='border-[1px] px-5 py-1 flex gap-1 items-center'><i class="fa-solid fa-chevron-left"></i>Prev</button>
+                           <h2>{currPage} of {totalPages}</h2>
+                           <button onClick={()=>handlePage(currPage+1)} disabled={currPage==totalPages} className='border-[1px] px-5 py-1 flex gap-1 items-center'>Next<i class="fa-solid fa-chevron-right"></i></button>
+                        </div>
                     </div>
                     </div>
                 </div>
