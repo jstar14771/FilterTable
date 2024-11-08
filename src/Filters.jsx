@@ -5,26 +5,43 @@ const Filters = ({data,setD}) => {
     const[Option,setOption]=useState("Above");
     const[Value1,setValue1]=useState("");
     const[Value2,setValue2]=useState("");
+    const[err,setError]=useState({})
     
     const clearFilter=()=>{
         setSubject("");
         setValue1("")
         setValue2("")
         setOption("Above")
+        setError({})
         setD(data)
     }
     console.log(Option)
 
-    const filterApply=()=>{
+    const validate=()=>{
+        const e={};
+        if(!Value1) e.Value1="Enter Value";
+        if(Option==="Between" && !Value2) e.Value2="Enter Value"
 
-        let filteredData = data.filter(student => {
-            const d = student[subject];
-            if (Option === "Above") return d > Value1;
-            if (Option === "Below") return d < Value1;
-            if (Option === "Between") return d >= Value1 && d <= Value2;
-            return true;
-        });
-        setD(filteredData)
+        return e;
+    }
+
+    const filterApply=()=>{
+        const r=validate()
+
+        if(Object.keys(r).length!=0){
+            setError(r);
+        }else{
+            let filteredData = data.filter(student => {
+                const d = student[subject];
+                if (Option === "Above") return d > Value1;
+                if (Option === "Below") return d < Value1;
+                if (Option === "Between") return d >= Value1 && d <= Value2;
+                return true;
+            });
+            setD(filteredData)
+        }
+
+       
     }
     return (
         <>
@@ -54,10 +71,10 @@ const Filters = ({data,setD}) => {
                     </div>
                     </div>
                     <div className='space-y-2'>
-                        <input type="text" value={Value1} placeholder='Enter value' onChange={(e)=>setValue1(parseInt(e.target.value))} className='border-2 w-full py-2 px-5'/>
+                        <input type="text" value={Value1} placeholder='Enter value' onChange={(e)=>setValue1(parseInt(e.target.value))} className={` border-2 w-full py-2 px-5 ${err.Value1 && 'border-red-300'}`}/>
                         {
                         
-                        Option=="Between" && <input type="text" value={Value2} placeholder='Enter value' onChange={(e)=>setValue2(parseInt(e.target.value))} className='border-2 w-full py-2 px-5'/>
+                        Option=="Between" && <input type="text" value={Value2} placeholder='Enter value' onChange={(e)=>setValue2(parseInt(e.target.value))} className={` border-2 w-full py-2 px-5 ${err.Value2 && 'border-red-300'}`}/>
                         }
                     </div>
                     <div className='flex justify-between mt-4'>
