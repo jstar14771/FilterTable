@@ -71,10 +71,10 @@ const Filters = ({data,setD}) => {
                     </div>
                     </div>
                     <div className='space-y-2'>
-                        <input type="text" value={Value1} placeholder='Enter value' onChange={(e)=>setValue1(parseInt(e.target.value))} className={` border-2 w-full py-2 px-5 ${err.Value1 && 'border-red-300'}`}/>
+                        <input type="text" value={Value1} placeholder='Enter value' onChange={(e)=>setValue1(isNaN(parseInt(e.target.value))?"":parseInt(e.target.value))} className={` border-2 w-full py-2 px-5 ${err.Value1 && 'border-red-300'}`}/>
                         {
                         
-                        Option=="Between" && <input type="text" value={Value2} placeholder='Enter value' onChange={(e)=>setValue2(parseInt(e.target.value))} className={` border-2 w-full py-2 px-5 ${err.Value2 && 'border-red-300'}`}/>
+                        Option=="Between" && <input type="text" value={Value2} placeholder='Enter value' onChange={(e)=>setValue2(isNaN(parseInt(e.target.value))?"":parseInt(e.target.value))} className={` border-2 w-full py-2 px-5 ${err.Value2 && 'border-red-300'}`}/>
                         }
                     </div>
                     <div className='flex justify-between mt-4'>
