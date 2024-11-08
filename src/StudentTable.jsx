@@ -24,7 +24,7 @@ const StudentTable = () => {
         <>
             <div className='h-screen w-screen flex justify-center items-center bg-gray-300'>
                 <div className='flex flex-col justify-between mt-8 border h-[75vh] w-[80%] p-10 bg-white'>
-                    <h2 className='text-center font-semibold mb-2'>Student Table</h2>
+                    <h2 className='text-center font-semibold mb-2 pl-[350px]'>Student Table</h2>
                     <div className='flex h-full w-full justify-between'>
                     <Filters data={data} setD={setData}/>
                     <div className='w-[3/5]'>
