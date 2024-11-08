@@ -29,7 +29,7 @@ const Filters = ({data,setD}) => {
     return (
         <>
         <div className='border-[1px] w-2/5 flex flex-col items-center'>
-            <h2 className='text-center mt-5'>Filters</h2>
+            <h2 className='text-center mt-5 font-semibold'>Filters</h2>
             <form action="" onSubmit={(e)=>e.preventDefault()} className=' w-[80%] mt-5 py-2 space-y-4'>
                 <select name="se" id="" className='border-2 w-full py-2' onChange={(e)=>setSubject(e.target.value)}>
                     <option value="" >Select Subject</option>
